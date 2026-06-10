@@ -9,54 +9,61 @@
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
+    <div class="main-container">
+        <!-- Left Accent Bar -->
+        <div class="accent-bar"></div>
 
-    <!-- Navigation -->
-    <nav class="nav">
-        <div class="nav-container">
-            <div class="nav-logo">
-                <img src="Assets/KElogo.png" alt="SCP Logo" class="nav-logo-img">
-                <span class="logo-text">FUNDACJA <span class="highlight">SCP</span></span>
-            </div>
-            <div class="nav-tabs">
-                <button class="nav-tab active" onclick="showView('selection')">PORTAL ETYKI</button>
-                <button class="nav-tab" onclick="showView('o1-view')">OMEGA-1</button>
-                <button class="nav-tab" onclick="showView('ke-view')">KOMITET</button>
-            </div>
-            <div class="mono nav-access">POZIOM DOSTĘPU: <span class="level-5">5</span></div>
-        </div>
-    </nav>
+        <!-- Main Selection View -->
+        <div id="selection" class="view active">
+            <div class="content-wrapper">
+                <div class="selection-header">
+                    <h1 class="main-title">Orientacja Komitetu ds. Etyki</h1>
+                    <p class="subtitle">Wybierz sekcję poniżej, aby zapoznać się z informacjami</p>
+                </div>
 
-    <!-- Main Selection View -->
-    <div id="selection" class="view active">
-        <div class="card-container">
-            <div class="card" onclick="showView('ke-view')">
-                <div class="card-logo-container">
-                    <img src="Assets/KElogo.png" alt="Komitet ds. Etyki" class="card-logo">
+                <div class="card-container">
+                    <div class="card card-horizontal" onclick="showView('ke-view')">
+                        <div class="card-icon-frame">
+                            <img src="Assets/KElogo.png" alt="KE Logo" class="card-logo-img">
+                        </div>
+                        <div class="card-content">
+                            <h2>Komitet ds. Etyki</h2>
+                            <p>Hierachia, regulacje i procedury etyczne Fundacji SCP</p>
+                        </div>
+                    </div>
+
+                    <div class="card card-horizontal" onclick="showView('o1-view')">
+                        <div class="card-icon-frame">
+                            <img src="Assets/O1.png" alt="Omega-1 Logo" class="card-logo-img">
+                        </div>
+                        <div class="card-content">
+                            <h2>Omega-1 "Law's Left Hand"</h2>
+                            <p>Elitarna jednostka egzekucyjna Komitetu ds. Etyki</p>
+                        </div>
+                    </div>
                 </div>
-                <h2>Komitet ds. Etyki</h2>
-                <p>Kliknij, by zapoznać się z cennymi informacjami na temat KE.</p>
-            </div>
-            <div class="card" onclick="showView('o1-view')">
-                <div class="card-logo-container">
-                    <img src="Assets/O1.png" alt="Omega-1" class="card-logo">
-                </div>
-                <h2>Omega-1 "Law's Left Hand"</h2>
-                <p>Kliknij, by zapoznać się z cennymi informacjami na temat Omega-1.</p>
             </div>
         </div>
-    </div>
 
     <!-- Komitet ds. Etyki View -->
     <div id="ke-view" class="view">
-        <button class="back-btn" onclick="showView('selection')">← Powrót do Wyboru Podsystemu</button>
-        <header class="glass-panel header-banner">
-            <div class="header-logo-wrapper">
-                <img src="Assets/KElogo.png" alt="KE Logo" class="header-logo-fade">
-            </div>
-            <h1>Komitet ds. Etyki</h1>
-            <p class="mono">Sekcja Zapoznawcza | Baza Danych: Orientacja & Regulacje</p>
-        </header>
-        <div class="grid-2">
+        <div class="main-container">
+            <div class="accent-bar"></div>
+            <div class="content-wrapper">
+                <button class="back-btn" onclick="showView('selection')">← Powrót do Wyboru Podsystemu</button>
+                <header class="header-banner">
+                    <div class="header-logo-wrapper">
+                        <svg class="header-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <circle cx="12" cy="8" r="4"></circle>
+                            <path d="M6 20c0-2 2-4 6-4s6 2 6 4"></path>
+                        </svg>
+                    </div>
+                    <div>
+                        <h1>Komitet ds. Etyki</h1>
+                        <p class="mono">Sekcja Zapoznawcza | Baza Danych: Orientacja & Regulacje</p>
+                    </div>
+                </header>
+                <div class="grid-2">
             <section class="glass-panel section">
                 <h2>Orientacja</h2>
                 <div class="text-block">
@@ -207,15 +214,26 @@
 
     <!-- Omega-1 View -->
     <div id="o1-view" class="view">
-        <button class="back-btn" onclick="showView('selection')">← Powrót do Wyboru Podsystemu</button>
-        <header class="glass-panel header-banner">
-            <div class="header-logo-wrapper">
-                <img src="Assets/O1.png" alt="Omega-1 Logo" class="header-logo-fade">
-            </div>
-            <h1>MTF Omega-1 ("Lewa Ręka Prawa")</h1>
-            <p class="mono">Jednostka Administracyjna | Bezpośredni Egzekutorzy Komitetu ds. Etyki</p>
-        </header>
-        <div class="grid-2">
+        <div class="main-container">
+            <div class="accent-bar"></div>
+            <div class="content-wrapper">
+                <button class="back-btn" onclick="showView('selection')">← Powrót do Wyboru Podsystemu</button>
+                <header class="header-banner">
+                    <div class="header-logo-wrapper">
+                        <svg class="header-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <!-- Hełm wojskowy -->
+                            <path d="M4 12c0-2 1-4 2-5h12c1 1 2 3 2 5v2H4v-2z"></path>
+                            <path d="M6 14h12v3c0 1-1 2-2 2H8c-1 0-2-1-2-2v-3z"></path>
+                            <path d="M7 10h10M8 11v1M16 11v1"></path>
+                            <circle cx="12" cy="8" r="1.5"></circle>
+                        </svg>
+                    </div>
+                    <div>
+                        <h1>MTF Omega-1 ("Lewa Ręka Prawa")</h1>
+                        <p class="mono">Jednostka Administracyjna | Bezpośredni Egzekutorzy Komitetu ds. Etyki</p>
+                    </div>
+                </header>
+                <div class="grid-2">
             <section class="glass-panel section">
                 <h2>Charakterystyka Jednostki</h2>
                 <div class="text-block">
@@ -261,6 +279,8 @@
                     <div id="omega-terminal" class="terminal"></div>
                 </div>
             </section>
+                </div>
+            </div>
         </div>
     </div>
 
