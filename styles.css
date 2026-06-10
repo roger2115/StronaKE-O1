@@ -126,8 +126,10 @@ h1, h2, h3 {
 }
 
 .view.active {
-    display: block !important;
+    display: flex !important;
     opacity: 1 !important;
+    visibility: visible !important;
+}
     visibility: visible !important;
 }
 
@@ -372,13 +374,14 @@ h1, h2, h3 {
 
 #ke-view,
 #o1-view {
-    display: none;
+    display: flex;
+    flex: 1;
     padding: 0;
 }
 
 #ke-view.active,
 #o1-view.active {
-    display: block;
+    display: flex;
     min-height: 100vh;
 }
 
