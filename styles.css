@@ -40,24 +40,29 @@ body::before {
     position: fixed;
     inset: 0;
     background: 
-        linear-gradient(45deg, transparent 30%, rgba(250, 204, 21, 0.05) 50%, transparent 70%),
-        linear-gradient(-45deg, transparent 30%, rgba(6, 182, 212, 0.05) 50%, transparent 70%),
-        linear-gradient(135deg, #0a0e1a 0%, #1a1f2e 50%, #0f1419 100%);
-    background-size: 300px 300px, 300px 300px, 100% 100%;
-    animation: bgShift 20s ease infinite;
+        radial-gradient(circle at 20% 50%, rgba(250, 204, 21, 0.08) 0%, transparent 50%),
+        radial-gradient(circle at 80% 80%, rgba(6, 182, 212, 0.06) 0%, transparent 50%),
+        radial-gradient(circle at 40% 20%, rgba(138, 43, 226, 0.04) 0%, transparent 40%),
+        linear-gradient(135deg, #0a0e1a 0%, #1a1f2e 25%, #0f1419 50%, #1a1a2e 75%, #0a0e1a 100%);
+    background-size: 600px 600px, 800px 800px, 500px 500px, 100% 100%;
+    background-attachment: fixed;
+    animation: bgFlow 40s ease-in-out infinite;
     z-index: -2;
 }
 
-@keyframes bgShift {
-    0%, 100% { background-position: 0 0, 0 0, 0 0; }
-    50% { background-position: 50px 50px, -50px -50px, 0 0; }
+@keyframes bgFlow {
+    0% { background-position: 0% 0%, 0% 0%, 0% 0%, 0 0; }
+    25% { background-position: 100% 100%, -50% 50%, 50% -50%, 0 0; }
+    50% { background-position: 50% 50%, 100% 0%, 0% 100%, 0 0; }
+    75% { background-position: 0% 100%, 50% 100%, 100% 0%, 0 0; }
+    100% { background-position: 0% 0%, 0% 0%, 0% 0%, 0 0; }
 }
 
 body::after {
     content: "";
     position: fixed;
     inset: 0;
-    background: rgba(0, 0, 0, 0.4);
+    background: radial-gradient(ellipse at center, rgba(0, 0, 0, 0.3) 0%, rgba(0, 0, 0, 0.6) 100%);
     z-index: -1;
 }
 

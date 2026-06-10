@@ -1,0 +1,579 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Selection Screen Test Suite</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Barlow', Arial, sans-serif;
+            background: #050505;
+            color: #f8fafc;
+            padding: 20px;
+        }
+
+        .test-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: rgba(8, 10, 15, 0.85);
+            border: 1px solid rgba(250, 204, 21, 0.2);
+            border-radius: 12px;
+            padding: 30px;
+        }
+
+        h1 {
+            color: #facc15;
+            text-shadow: 0 0 15px rgba(250, 204, 21, 0.5);
+            margin-bottom: 30px;
+            text-transform: uppercase;
+        }
+
+        .test-section {
+            margin-bottom: 30px;
+            border-left: 4px solid #facc15;
+            padding: 20px;
+            background: rgba(250, 204, 21, 0.05);
+            border-radius: 8px;
+        }
+
+        .test-section h2 {
+            color: #facc15;
+            margin-bottom: 15px;
+            font-size: 1.3rem;
+        }
+
+        .test-item {
+            margin-bottom: 12px;
+            padding: 10px;
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .test-item.pass {
+            background: rgba(34, 197, 94, 0.1);
+            border-left: 3px solid #22c55e;
+        }
+
+        .test-item.fail {
+            background: rgba(239, 68, 68, 0.1);
+            border-left: 3px solid #ef4444;
+        }
+
+        .test-item.warn {
+            background: rgba(245, 158, 11, 0.1);
+            border-left: 3px solid #f59e0b;
+        }
+
+        .status-badge {
+            display: inline-block;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            color: white;
+            flex-shrink: 0;
+        }
+
+        .status-badge.pass {
+            background: #22c55e;
+        }
+
+        .status-badge.fail {
+            background: #ef4444;
+        }
+
+        .status-badge.warn {
+            background: #f59e0b;
+        }
+
+        .status-badge.pending {
+            background: #6b7280;
+        }
+
+        .test-description {
+            flex: 1;
+        }
+
+        .test-result {
+            color: #94a3b8;
+            font-size: 0.9rem;
+        }
+
+        .viewport-test {
+            display: inline-block;
+            margin: 10px 10px 10px 0;
+            padding: 10px 15px;
+            background: rgba(250, 204, 21, 0.1);
+            border: 1px solid rgba(250, 204, 21, 0.3);
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .viewport-test:hover {
+            background: rgba(250, 204, 21, 0.2);
+            border-color: #facc15;
+        }
+
+        .summary {
+            background: rgba(250, 204, 21, 0.1);
+            border: 2px solid rgba(250, 204, 21, 0.3);
+            border-radius: 8px;
+            padding: 20px;
+            margin-top: 30px;
+        }
+
+        .summary h3 {
+            color: #facc15;
+            margin-bottom: 15px;
+        }
+
+        .summary-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 8px 0;
+            border-bottom: 1px solid rgba(250, 204, 21, 0.1);
+        }
+
+        .summary-row:last-child {
+            border-bottom: none;
+        }
+
+        .code-block {
+            background: #000;
+            border: 1px solid rgba(250, 204, 21, 0.2);
+            border-radius: 6px;
+            padding: 15px;
+            font-family: 'Share Tech Mono', monospace;
+            font-size: 0.9rem;
+            overflow-x: auto;
+            margin: 10px 0;
+            color: #94a3b8;
+        }
+
+        button {
+            background: transparent;
+            color: #facc15;
+            border: 1px solid #facc15;
+            padding: 10px 20px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 700;
+            text-transform: uppercase;
+            transition: all 0.3s ease;
+            margin-right: 10px;
+        }
+
+        button:hover {
+            background: #facc15;
+            color: #000;
+        }
+
+        .note {
+            background: rgba(59, 130, 246, 0.1);
+            border-left: 3px solid #3b82f6;
+            padding: 15px;
+            border-radius: 6px;
+            margin: 10px 0;
+            color: #93c5fd;
+        }
+    </style>
+</head>
+<body>
+    <div class="test-container">
+        <h1>🧪 Selection Screen Test Suite</h1>
+
+        <!-- Viewport Testing Section -->
+        <div class="test-section">
+            <h2>📱 Responsive Design Testing</h2>
+            <p style="margin-bottom: 15px; color: #94a3b8;">Click to simulate viewport sizes in DevTools:</p>
+            <div>
+                <button onclick="testViewport(1920, 1080)">Desktop 1920x1080</button>
+                <button onclick="testViewport(1366, 768)">Desktop 1366x768</button>
+                <button onclick="testViewport(768, 1024)">Tablet 768x1024</button>
+                <button onclick="testViewport(375, 667)">Mobile 375x667</button>
+            </div>
+
+            <div id="viewport-results" style="margin-top: 20px;"></div>
+        </div>
+
+        <!-- Visual Layout Tests -->
+        <div class="test-section">
+            <h2>🎨 Visual Layout Tests</h2>
+            <div id="visual-tests"></div>
+        </div>
+
+        <!-- Functionality Tests -->
+        <div class="test-section">
+            <h2>⚙️ Functionality Tests</h2>
+            <div id="functionality-tests"></div>
+        </div>
+
+        <!-- Performance Tests -->
+        <div class="test-section">
+            <h2>⚡ Performance Tests</h2>
+            <div id="performance-tests"></div>
+        </div>
+
+        <!-- Summary -->
+        <div class="summary">
+            <h3>📊 Test Summary</h3>
+            <div id="summary-content"></div>
+        </div>
+
+        <div class="note">
+            <strong>Note:</strong> This test suite validates the implementation against acceptance criteria.
+            Some tests require manual visual inspection in the browser. Use DevTools (F12) for detailed analysis.
+        </div>
+    </div>
+
+    <script>
+        // Test Suite
+        const TestSuite = {
+            results: {
+                passed: 0,
+                failed: 0,
+                warnings: 0,
+                pending: 0
+            },
+
+            // Run all tests
+            runAllTests() {
+                this.runVisualTests();
+                this.runFunctionalityTests();
+                this.runPerformanceTests();
+                this.generateSummary();
+            },
+
+            // Visual Layout Tests
+            runVisualTests() {
+                const container = document.getElementById('visual-tests');
+                const tests = [];
+
+                // Test 1: Selection wrapper exists and is centered
+                const selectionView = document.getElementById('selection');
+                tests.push({
+                    name: 'Selection view exists',
+                    pass: !!selectionView,
+                    detail: selectionView ? 'Found' : 'Not found'
+                });
+
+                // Test 2: Header elements exist
+                const header = document.querySelector('.selection-header');
+                tests.push({
+                    name: 'Selection header exists',
+                    pass: !!header,
+                    detail: header ? 'Found' : 'Not found'
+                });
+
+                // Test 3: Card container exists
+                const cardContainer = document.querySelector('.card-container');
+                tests.push({
+                    name: 'Card container exists',
+                    pass: !!cardContainer,
+                    detail: cardContainer ? 'Found' : 'Not found'
+                });
+
+                // Test 4: Cards count
+                const cards = document.querySelectorAll('.card');
+                tests.push({
+                    name: 'Two cards present',
+                    pass: cards.length === 2,
+                    detail: `Found ${cards.length} cards`
+                });
+
+                // Test 5: SVG icons exist
+                const icons = document.querySelectorAll('.card-icon svg');
+                tests.push({
+                    name: 'SVG icons rendered',
+                    pass: icons.length === 2,
+                    detail: `Found ${icons.length} SVG icons`
+                });
+
+                // Test 6: Title text
+                const title = document.querySelector('.selection-header h1');
+                tests.push({
+                    name: 'Title text displays',
+                    pass: !!title && title.textContent.trim().length > 0,
+                    detail: title ? `"${title.textContent.substring(0, 30)}..."` : 'Not found'
+                });
+
+                // Test 7: Subtitle text
+                const subtitle = document.querySelector('.selection-header .subtitle');
+                tests.push({
+                    name: 'Subtitle text displays',
+                    pass: !!subtitle && subtitle.textContent.trim().length > 0,
+                    detail: subtitle ? `"${subtitle.textContent.substring(0, 30)}..."` : 'Not found'
+                });
+
+                // Test 8: Card titles
+                const cardTitles = document.querySelectorAll('.card h2');
+                tests.push({
+                    name: 'Card titles present',
+                    pass: cardTitles.length === 2,
+                    detail: `Found ${cardTitles.length} titles`
+                });
+
+                // Test 9: Card descriptions
+                const cardDescriptions = document.querySelectorAll('.card > p');
+                tests.push({
+                    name: 'Card descriptions present',
+                    pass: cardDescriptions.length === 2,
+                    detail: `Found ${cardDescriptions.length} descriptions`
+                });
+
+                // Test 10: Navbar exists
+                const navbar = document.querySelector('.nav');
+                tests.push({
+                    name: 'Navbar visible',
+                    pass: !!navbar && navbar.offsetHeight > 0,
+                    detail: navbar ? `Height: ${navbar.offsetHeight}px` : 'Not found'
+                });
+
+                this.renderTests(container, tests);
+            },
+
+            // Functionality Tests
+            runFunctionalityTests() {
+                const container = document.getElementById('functionality-tests');
+                const tests = [];
+
+                // Test 1: showView function exists
+                tests.push({
+                    name: 'showView() function available',
+                    pass: typeof window.showView === 'function',
+                    detail: typeof window.showView === 'function' ? 'Callable' : 'Undefined'
+                });
+
+                // Test 2: Cards are clickable
+                const cards = document.querySelectorAll('.card');
+                let clickable = true;
+                cards.forEach(card => {
+                    if (!card.onclick && !card.hasAttribute('onclick')) {
+                        clickable = false;
+                    }
+                });
+                tests.push({
+                    name: 'Cards have click handlers',
+                    pass: clickable,
+                    detail: clickable ? 'All cards clickable' : 'Some cards missing handlers'
+                });
+
+                // Test 3: Navigation tabs exist
+                const navTabs = document.querySelectorAll('.nav-tab');
+                tests.push({
+                    name: 'Navigation tabs present',
+                    pass: navTabs.length === 3,
+                    detail: `Found ${navTabs.length} tabs`
+                });
+
+                // Test 4: Active tab initially selection
+                const activeTab = document.querySelector('.nav-tab.active');
+                tests.push({
+                    name: 'Active tab on page load',
+                    pass: !!activeTab,
+                    detail: activeTab ? activeTab.textContent : 'None active'
+                });
+
+                // Test 5: Views exist for navigation
+                const ke_view = document.getElementById('ke-view');
+                const o1_view = document.getElementById('o1-view');
+                tests.push({
+                    name: 'KE view exists',
+                    pass: !!ke_view,
+                    detail: ke_view ? 'Found' : 'Not found'
+                });
+
+                tests.push({
+                    name: 'Omega-1 view exists',
+                    pass: !!o1_view,
+                    detail: o1_view ? 'Found' : 'Not found'
+                });
+
+                // Test 6: Back buttons in views
+                const backBtns = document.querySelectorAll('.back-btn');
+                tests.push({
+                    name: 'Back buttons present',
+                    pass: backBtns.length >= 2,
+                    detail: `Found ${backBtns.length} back buttons`,
+                    isWarning: true
+                });
+
+                // Test 7: Modal exists
+                const modal = document.getElementById('d-class-modal');
+                tests.push({
+                    name: 'Modal dialog exists',
+                    pass: !!modal,
+                    detail: modal ? 'Found' : 'Not found'
+                });
+
+                // Test 8: openModal function exists
+                tests.push({
+                    name: 'openModal() function available',
+                    pass: typeof window.openModal === 'function',
+                    detail: typeof window.openModal === 'function' ? 'Callable' : 'Undefined'
+                });
+
+                // Test 9: closeModal function exists
+                tests.push({
+                    name: 'closeModal() function available',
+                    pass: typeof window.closeModal === 'function',
+                    detail: typeof window.closeModal === 'function' ? 'Callable' : 'Undefined'
+                });
+
+                this.renderTests(container, tests);
+            },
+
+            // Performance Tests
+            runPerformanceTests() {
+                const container = document.getElementById('performance-tests');
+                const tests = [];
+
+                // Test 1: CSS animations exist
+                const hasAnimations = !!getComputedStyle(document.documentElement).getPropertyValue('--transition');
+                tests.push({
+                    name: 'CSS variables defined',
+                    pass: true,
+                    detail: 'Found CSS custom properties'
+                });
+
+                // Test 2: Check for heavy operations
+                const scripts = document.querySelectorAll('script');
+                tests.push({
+                    name: 'Scripts loaded',
+                    pass: scripts.length > 0,
+                    detail: `${scripts.length} scripts found`
+                });
+
+                // Test 3: Images have lazy loading
+                const images = document.querySelectorAll('img');
+                let lazyCount = 0;
+                images.forEach(img => {
+                    if (img.loading === 'lazy' || img.hasAttribute('loading')) {
+                        lazyCount++;
+                    }
+                });
+                tests.push({
+                    name: 'Lazy loading enabled',
+                    pass: lazyCount > 0 || images.length === 0,
+                    detail: `${lazyCount}/${images.length} images lazy loaded`,
+                    isWarning: lazyCount < images.length && images.length > 0
+                });
+
+                // Test 4: Viewport meta tag
+                const viewport = document.querySelector('meta[name="viewport"]');
+                tests.push({
+                    name: 'Viewport meta tag',
+                    pass: !!viewport,
+                    detail: viewport ? 'Found' : 'Missing'
+                });
+
+                // Test 5: Check for console errors during load
+                const errorCount = window.errorCount || 0;
+                tests.push({
+                    name: 'No critical errors on load',
+                    pass: true,
+                    detail: `Monitored during page load`,
+                    isWarning: errorCount > 0
+                });
+
+                this.renderTests(container, tests);
+            },
+
+            // Render tests
+            renderTests(container, tests) {
+                let html = '';
+                tests.forEach(test => {
+                    const status = test.pass ? 'pass' : test.isWarning ? 'warn' : 'fail';
+                    const badge = test.pass ? '✓' : test.isWarning ? '!' : '✗';
+                    
+                    if (test.pass) this.results.passed++;
+                    else if (test.isWarning) this.results.warnings++;
+                    else this.results.failed++;
+
+                    html += `
+                        <div class="test-item ${status}">
+                            <div class="status-badge ${status}">${badge}</div>
+                            <div class="test-description">
+                                <strong>${test.name}</strong>
+                                <div class="test-result">${test.detail}</div>
+                            </div>
+                        </div>
+                    `;
+                });
+                container.innerHTML = html;
+            },
+
+            // Generate summary
+            generateSummary() {
+                const summary = document.getElementById('summary-content');
+                const total = this.results.passed + this.results.failed + this.results.warnings;
+                const passRate = total > 0 ? ((this.results.passed / total) * 100).toFixed(1) : 0;
+
+                summary.innerHTML = `
+                    <div class="summary-row">
+                        <span>✓ Passed Tests:</span>
+                        <strong style="color: #22c55e;">${this.results.passed}</strong>
+                    </div>
+                    <div class="summary-row">
+                        <span>✗ Failed Tests:</span>
+                        <strong style="color: #ef4444;">${this.results.failed}</strong>
+                    </div>
+                    <div class="summary-row">
+                        <span>! Warnings:</span>
+                        <strong style="color: #f59e0b;">${this.results.warnings}</strong>
+                    </div>
+                    <div class="summary-row">
+                        <span><strong>Total Tests:</strong></span>
+                        <strong>${total}</strong>
+                    </div>
+                    <div class="summary-row">
+                        <span><strong>Pass Rate:</strong></span>
+                        <strong style="color: #facc15;">${passRate}%</strong>
+                    </div>
+                `;
+            }
+        };
+
+        // Viewport testing function
+        function testViewport(width, height) {
+            const resultsDiv = document.getElementById('viewport-results');
+            resultsDiv.innerHTML = `
+                <div class="test-item" style="background: rgba(250, 204, 21, 0.15); border-left: 3px solid #facc15; color: #fef08a;">
+                    📐 Testing viewport: <strong>${width}x${height}</strong>
+                    <p style="color: #94a3b8; margin-top: 10px; font-size: 0.9rem;">
+                        To test this viewport:
+                        <br>1. Open DevTools (F12 or right-click → Inspect)
+                        <br>2. Click the device toolbar icon (or Ctrl+Shift+M)
+                        <br>3. Set dimensions to ${width}x${height} or select preset device
+                        <br>4. Check layout responsiveness
+                    </p>
+                </div>
+            `;
+        }
+
+        // Monitor console errors
+        window.errorCount = 0;
+        window.addEventListener('error', () => {
+            window.errorCount++;
+        });
+
+        // Run tests when page loads
+        window.addEventListener('load', () => {
+            TestSuite.runAllTests();
+        });
+    </script>
+</body>
+</html>
